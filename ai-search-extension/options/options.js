@@ -115,7 +115,7 @@ async function testAPI() {
   testBtn.disabled = true;
   
   try {
-    const response = await fetch('https://your-vercel-app.vercel.app/api/chat', {
+    const response = await fetch('https://1search-assistant.vercel.app/api/chat', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
