@@ -13,17 +13,14 @@
                 <span class="chat-icon">🤖</span>
                 <h1>Chat with Dobby</h1>
             </div>
-            <button class="settings-btn" id="settingsBtn" title="Settings">⚙️</button>
+            <div class="chat-header-actions">
+                <button class="clear-btn" id="clearBtn" title="Clear Chat">🗑️</button>
+                <button class="settings-btn" id="settingsBtn" title="Settings">⚙️</button>
+            </div>
         </div>
         
         <div class="chat-messages" id="chatMessages">
-            <div class="message dobby-message">
-                <div class="message-content">
-                    <div class="message-bubble">
-                        👋 Hi! I'm Dobby, your AI assistant. Ask me anything!
-                    </div>
-                </div>
-            </div>
+            <!-- Messages will be dynamically added here -->
         </div>
         
         <div class="chat-input-container">
@@ -42,6 +39,23 @@
         
         <div class="chat-footer">
             <span class="powered-by">Powered by Dobby 8B Model</span>
+        </div>
+    </div>
+
+    <!-- Custom Modal -->
+    <div class="modal-overlay" id="clearModal">
+        <div class="modal">
+            <div class="modal-header">
+                <span class="modal-icon">⚠️</span>
+                <h3 class="modal-title">Clear Chat History</h3>
+            </div>
+            <p class="modal-message">
+                Are you sure you want to clear all chat history? This action cannot be undone.
+            </p>
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-cancel" id="cancelClear">Cancel</button>
+                <button class="modal-btn modal-btn-confirm" id="confirmClear">Yes, Clear</button>
+            </div>
         </div>
     </div>
 

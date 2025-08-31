@@ -1,18 +1,14 @@
 {
   "manifest_version": 3,
-  "name": "AI Search Assistant",
+  "name": "Dobby AI Search Assistant",
   "version": "1.0.0",
   "description": "Get AI-powered answers alongside your search results",
   "permissions": [
     "storage",
     "activeTab"
   ],
- "host_permissions": [
-    "*://www.google.com/*",
-    "*://www.bing.com/*", 
-    "*://duckduckgo.com/*",
-    "*://search.yahoo.com/*",
-    "https://1search-assistant.vercel.app/*"
+  "host_permissions": [
+    "<all_urls>"
   ],
   "content_scripts": [
     {

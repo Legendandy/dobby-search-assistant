@@ -1,13 +1,16 @@
 class ChatInterface {
   constructor() {
     this.settings = {};
+    this.chatHistory = [];
     this.init();
   }
 
   async init() {
     await this.loadSettings();
+    await this.loadChatHistory();
     this.setupEventListeners();
     this.applyTheme();
+    this.renderChatHistory();
     this.focusInput();
   }
 
@@ -21,10 +24,23 @@ class ChatInterface {
     this.settings = await chrome.storage.sync.get(defaultSettings);
   }
 
+  async loadChatHistory() {
+    const stored = await chrome.storage.local.get({ chatHistory: [] });
+    this.chatHistory = stored.chatHistory || [];
+  }
+
+  async saveChatHistory() {
+    await chrome.storage.local.set({ chatHistory: this.chatHistory });
+  }
+
   setupEventListeners() {
     const chatInput = document.getElementById('chatInput');
     const sendBtn = document.getElementById('sendBtn');
     const settingsBtn = document.getElementById('settingsBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const clearModal = document.getElementById('clearModal');
+    const cancelClear = document.getElementById('cancelClear');
+    const confirmClear = document.getElementById('confirmClear');
 
     // Send message on button click
     sendBtn.addEventListener('click', () => this.sendMessage());
@@ -42,10 +58,108 @@ class ChatInterface {
       chrome.runtime.openOptionsPage();
     });
 
+    // Show clear confirmation modal
+    clearBtn.addEventListener('click', () => this.showClearModal());
+
+    // Cancel clear action
+    cancelClear.addEventListener('click', () => this.hideClearModal());
+
+    // Confirm clear action
+    confirmClear.addEventListener('click', () => this.confirmClearChat());
+
+    // Close modal when clicking outside
+    clearModal.addEventListener('click', (e) => {
+      if (e.target === clearModal) {
+        this.hideClearModal();
+      }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        this.hideClearModal();
+      }
+    });
+
     // Auto-resize based on content
     chatInput.addEventListener('input', (e) => {
       this.updateSendButton();
     });
+  }
+
+  showClearModal() {
+    const clearModal = document.getElementById('clearModal');
+    clearModal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+
+  hideClearModal() {
+    const clearModal = document.getElementById('clearModal');
+    clearModal.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+
+  async confirmClearChat() {
+    this.chatHistory = [];
+    await this.saveChatHistory();
+    
+    // Clear the messages container completely
+    const messagesContainer = document.getElementById('chatMessages');
+    messagesContainer.innerHTML = '';
+    
+    // Add welcome message back
+    this.addWelcomeMessage();
+    
+    // Hide the modal
+    this.hideClearModal();
+  }
+
+  // Updated clearChat method to use modal
+  async clearChat() {
+    this.showClearModal();
+  }
+
+  addWelcomeMessage() {
+    const welcomeMessage = {
+      content: '👋 Hi! I\'m Dobby, your AI search assistant. Ask me anything!',
+      sender: 'dobby',
+      timestamp: Date.now()
+    };
+    
+    this.chatHistory.push(welcomeMessage);
+    this.saveChatHistory();
+    this.renderMessage(welcomeMessage);
+  }
+
+  renderChatHistory() {
+    const messagesContainer = document.getElementById('chatMessages');
+    messagesContainer.innerHTML = '';
+    
+    if (this.chatHistory.length === 0) {
+      this.addWelcomeMessage();
+    } else {
+      this.chatHistory.forEach(message => {
+        this.renderMessage(message);
+      });
+      this.scrollToBottom();
+    }
+  }
+
+  renderMessage(message) {
+    const messagesContainer = document.getElementById('chatMessages');
+    const messageDiv = document.createElement('div');
+    
+    messageDiv.className = `message ${message.sender}-message`;
+    messageDiv.innerHTML = `
+      <div class="message-content">
+        <div class="message-bubble">
+          ${this.formatMessage(message.content)}
+        </div>
+      </div>
+    `;
+
+    messagesContainer.appendChild(messageDiv);
+    this.scrollToBottom();
   }
 
   updateSendButton() {
@@ -71,7 +185,15 @@ class ChatInterface {
     this.updateSendButton();
 
     // Add user message
-    this.addMessage(message, 'user');
+    const userMessage = {
+      content: message,
+      sender: 'user',
+      timestamp: Date.now()
+    };
+    
+    this.chatHistory.push(userMessage);
+    await this.saveChatHistory();
+    this.renderMessage(userMessage);
 
     // Show typing indicator
     this.showTyping();
@@ -80,7 +202,16 @@ class ChatInterface {
       // Get AI response
       const response = await this.getAIResponse(message);
       this.hideTyping();
-      this.addMessage(response, 'dobby');
+      
+      const dobbyMessage = {
+        content: response,
+        sender: 'dobby',
+        timestamp: Date.now()
+      };
+      
+      this.chatHistory.push(dobbyMessage);
+      await this.saveChatHistory();
+      this.renderMessage(dobbyMessage);
     } catch (error) {
       this.hideTyping();
       this.showError('Sorry, I couldn\'t process your request. Please try again.');
@@ -88,20 +219,14 @@ class ChatInterface {
   }
 
   addMessage(content, sender) {
-    const messagesContainer = document.getElementById('chatMessages');
-    const messageDiv = document.createElement('div');
-    
-    messageDiv.className = `message ${sender}-message`;
-    messageDiv.innerHTML = `
-      <div class="message-content">
-        <div class="message-bubble">
-          ${this.formatMessage(content)}
-        </div>
-      </div>
-    `;
-
-    messagesContainer.appendChild(messageDiv);
-    this.scrollToBottom();
+    // This method is now handled by renderMessage
+    // Keeping for compatibility but redirecting to new method
+    const message = {
+      content: content,
+      sender: sender,
+      timestamp: Date.now()
+    };
+    this.renderMessage(message);
   }
 
   showError(message) {
