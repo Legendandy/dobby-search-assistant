@@ -1,4 +1,3 @@
-import fetch from 'node-fetch';
 
 export default async function handler(req, res) {
   // Enable CORS
@@ -18,8 +17,13 @@ export default async function handler(req, res) {
   try {
     const { query, apiKey, maxTokens = 300 } = req.body;
 
+    console.log('Received request:', { query: query?.substring(0, 50), hasApiKey: !!apiKey, maxTokens });
+
     if (!query || !apiKey) {
-      return res.status(400).json({ error: 'Missing query or API key' });
+      return res.status(400).json({ 
+        error: 'Missing required fields',
+        details: `Missing: ${!query ? 'query' : ''} ${!apiKey ? 'apiKey' : ''}`.trim()
+      });
     }
 
     // Call Fireworks AI API
@@ -34,32 +38,51 @@ export default async function handler(req, res) {
         messages: [
           {
             role: 'system',
-            content: 'You are a helpful AI assistant that provides concise, accurate answers to search queries. Keep responses under 200 words and focus on being informative and direct.'
+            content: 'You are Dobby, a helpful AI assistant that provides concise, accurate answers to search queries. Keep responses under 200 words and focus on being informative and direct.'
           },
           {
             role: 'user',
-            content: `Search query: "${query}"\n\nPlease provide a helpful, concise answer to this search query.`
+            content: query
           }
         ],
-        max_tokens: maxTokens,
-        temperature: 0.7
+        max_tokens: Math.min(maxTokens, 500),
+        temperature: 0.7,
+        top_p: 1,
+        stream: false
       })
     });
 
+    console.log('Fireworks API response status:', aiResponse.status);
+
     if (!aiResponse.ok) {
-      const errorData = await aiResponse.json().catch(() => ({}));
-      throw new Error(errorData.error?.message || 'AI API request failed');
+      const errorText = await aiResponse.text();
+      console.error('Fireworks API error:', errorText);
+      
+      let errorMessage = 'AI API request failed';
+      try {
+        const errorData = JSON.parse(errorText);
+        errorMessage = errorData.error?.message || errorData.detail || errorMessage;
+      } catch (e) {
+        errorMessage = `HTTP ${aiResponse.status}: ${errorText}`;
+      }
+      
+      return res.status(aiResponse.status).json({ 
+        error: errorMessage,
+        details: `Fireworks API returned ${aiResponse.status}`
+      });
     }
 
     const aiData = await aiResponse.json();
-    const response = aiData.choices[0]?.message?.content || 'No response generated';
+    console.log('Fireworks API success, choices length:', aiData.choices?.length);
+    
+    const response = aiData.choices?.[0]?.message?.content || 'No response generated';
 
     res.status(200).json({ response });
 
   } catch (error) {
-    console.error('AI API Error:', error);
+    console.error('Server error:', error);
     res.status(500).json({ 
-      error: 'Failed to get AI response',
+      error: 'Internal server error',
       details: error.message 
     });
   }
