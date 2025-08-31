@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with Dobby</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <div class="chat-title">
+                <span class="chat-icon">🤖</span>
+                <h1>Chat with Dobby</h1>
+            </div>
+            <button class="settings-btn" id="settingsBtn" title="Settings">⚙️</button>
+        </div>
+        
+        <div class="chat-messages" id="chatMessages">
+            <div class="message dobby-message">
+                <div class="message-content">
+                    <div class="message-bubble">
+                        👋 Hi! I'm Dobby, your AI assistant. Ask me anything!
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="chat-input-container">
+            <div class="chat-input-wrapper">
+                <input 
+                    type="text" 
+                    id="chatInput" 
+                    placeholder="Type your message..."
+                    maxlength="500"
+                >
+                <button class="send-btn" id="sendBtn">
+                    <span class="send-icon">➤</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="chat-footer">
+            <span class="powered-by">Powered by Dobby 8B Model</span>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>

@@ -89,8 +89,6 @@ class AISearchAssistant {
             🤖 AI Assistant
           </div>
           <div class="ai-search-controls">
-            <button class="ai-control-btn" id="aiRefresh" title="Refresh">🔄</button>
-            <button class="ai-control-btn" id="aiSettings" title="Settings">⚙️</button>
             <button class="ai-control-btn" id="aiClose" title="Close">×</button>
           </div>
         </div>
@@ -102,7 +100,6 @@ class AISearchAssistant {
         </div>
         <div class="ai-search-footer">
           <span class="ai-powered-by">Powered by Dobby 8B</span>
-          <a href="#" class="ai-settings-link" id="aiSettingsLink">Settings</a>
         </div>
       </div>
     `;
@@ -112,26 +109,13 @@ class AISearchAssistant {
 
   setupEventListeners() {
     // Control buttons
-    const refreshBtn = this.searchBox.querySelector('#aiRefresh');
-    const settingsBtn = this.searchBox.querySelector('#aiSettings');
     const closeBtn = this.searchBox.querySelector('#aiClose');
-    const settingsLink = this.searchBox.querySelector('#aiSettingsLink');
 
-    refreshBtn?.addEventListener('click', () => this.getAIResponse(true));
-    settingsBtn?.addEventListener('click', () => this.openSettings());
     closeBtn?.addEventListener('click', () => this.hideSearchBox());
-    settingsLink?.addEventListener('click', (e) => {
-      e.preventDefault();
-      this.openSettings();
-    });
   }
 
   applyPositioning() {
     switch (this.settings.position) {
-      case 'top':
-        this.searchBox.classList.add('position-top');
-        this.insertAtTop();
-        break;
       case 'overlay':
         this.searchBox.classList.add('position-overlay');
         break;
@@ -143,10 +127,7 @@ class AISearchAssistant {
   }
 
   insertAtTop() {
-    const searchResults = this.getSearchResultsContainer();
-    if (searchResults) {
-      searchResults.insertBefore(this.container, searchResults.firstChild);
-    }
+    // Removed - no longer needed since we removed "top" option
   }
 
   getSearchResultsContainer() {
