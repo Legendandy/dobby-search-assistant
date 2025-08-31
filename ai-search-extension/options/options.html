@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Search Assistant Settings</title>
+    <link rel="stylesheet" href="options.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🤖 AI Search Assistant</h1>
+            <p class="subtitle">Configure your AI-powered search experience</p>
+        </header>
+
+        <div class="welcome-banner" id="welcomeBanner">
+            <div class="welcome-content">
+                <h2>🎉 Welcome to AI Search Assistant!</h2>
+                <p>Get started by configuring your settings below.</p>
+                <button class="btn-close" id="closeBanner">×</button>
+            </div>
+        </div>
+
+        <form class="settings-form" id="settingsForm">
+            <div class="section">
+                <h3>🔑 API Configuration</h3>
+                <div class="form-group">
+                    <label for="apiKey">Fireworks API Key</label>
+                    <input 
+                        type="password" 
+                        id="apiKey" 
+                        placeholder="Enter your Fireworks API key"
+                        required
+                    >
+                    <small>Get your API key from <a href="https://app.fireworks.ai" target="_blank">Fireworks AI</a></small>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>⚙️ Display Settings</h3>
+                <div class="form-group">
+                    <label for="theme">Theme</label>
+                    <select id="theme">
+                        <option value="light">☀️ Light Mode</option>
+                        <option value="dark">🌙 Dark Mode</option>
+                        <option value="auto">🔄 Auto (System)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="position">AI Result Position</label>
+                    <select id="position">
+                        <option value="right">📍 Right Side</option>
+                        <option value="top">⬆️ Above Results</option>
+                        <option value="overlay">🎯 Overlay Mode</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="autoShow">Auto-show AI Results</label>
+                    <select id="autoShow">
+                        <option value="always">✅ Always</option>
+                        <option value="manual">👆 Manual (Click to show)</option>
+                        <option value="keywords">🔍 Only for questions</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>🎨 Appearance</h3>
+                <div class="form-group">
+                    <label for="opacity">AI Box Opacity</label>
+                    <input type="range" id="opacity" min="0.7" max="1" step="0.1" value="0.95">
+                    <span class="range-value" id="opacityValue">95%</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="fontSize">Font Size</label>
+                    <select id="fontSize">
+                        <option value="small">Small</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="large">Large</option>
+                    </select>
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="animations">
+                    <label for="animations">✨ Enable Animations</label>
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="soundEffects">
+                    <label for="soundEffects">🔊 Sound Effects</label>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>🔧 Advanced</h3>
+                <div class="form-group">
+                    <label for="maxTokens">Max Response Length</label>
+                    <select id="maxTokens">
+                        <option value="150">Short (150 tokens)</option>
+                        <option value="300" selected>Medium (300 tokens)</option>
+                        <option value="500">Long (500 tokens)</option>
+                    </select>
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="cacheResults">
+                    <label for="cacheResults">💾 Cache Results</label>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn-primary">💾 Save Settings</button>
+                <button type="button" class="btn-secondary" id="resetBtn">🔄 Reset to Defaults</button>
+                <button type="button" class="btn-test" id="testBtn">🧪 Test API</button>
+            </div>
+        </form>
+
+        <div class="status-message" id="statusMessage"></div>
+
+        <footer class="footer">
+            <p>Made with ❤️ for better search experiences</p>
+        </footer>
+    </div>
+
+    <script src="options.js"></script>
+</body>
+</html>

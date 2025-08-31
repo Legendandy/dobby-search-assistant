@@ -1,0 +1,17 @@
+{
+  "name": "ai-search-backend",
+  "version": "1.0.0",
+  "description": "Backend for AI Search Assistant Extension",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "vercel build",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.0"
+  },
+  "devDependencies": {
+    "vercel": "^32.0.0"
+  }
+}
