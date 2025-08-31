@@ -138,14 +138,6 @@ body {
   border: 2px solid var(--border-color);
 }
 
-.message-time {
-  /* Removed - no timestamps needed */
-}
-
-.dobby-message .message-time {
-  /* Removed - no timestamps needed */
-}
-
 .chat-input-container {
   padding: 15px 20px;
   background: var(--bg-primary);
