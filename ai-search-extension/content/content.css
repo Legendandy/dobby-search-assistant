@@ -151,17 +151,16 @@
   position: fixed;
   top: 100px;
   right: 20px;
-  background: var(--ai-gradient);
-  color: white;
+  background: none;
   border: none;
   width: 60px;
   height: 60px;
   border-radius: 50%;
   cursor: pointer;
-  font-size: 24px;
-  box-shadow: var(--ai-shadow);
+  box-shadow: none;
   z-index: 9999;
   transition: all 0.3s ease;
+  padding: 0;
 }
 
 .ai-search-trigger:hover {

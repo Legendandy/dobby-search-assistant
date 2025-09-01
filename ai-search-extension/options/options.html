@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <header class="header">
-            <h1>🤖 AI Search Assistant</h1>
+            <h1><img src="/icons/icon.png" alt="dobby" style="width: 48px; height: 48px;"> Dobby AI Search Assistant</h1>
             <p class="subtitle">Configure your AI-powered search experience</p>
         </header>
 
@@ -50,17 +50,17 @@
                 <div class="form-group">
                     <label for="position">AI Result Position</label>
                     <select id="position">
-                        <option value="right">📍 Right Side</option>
-                        <option value="overlay">🎯 Overlay Mode</option>
+                        <option value="right">Right Side</option>
+                        <option value="overlay">Overlay Mode</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label for="autoShow">Auto-show AI Results</label>
                     <select id="autoShow">
-                        <option value="always">✅ Always</option>
-                        <option value="manual">👆 Manual (Click to show)</option>
-                        <option value="keywords">🔍 Only for questions</option>
+                        <option value="manual">Manual (Click to show)</option>
+                        <option value="always">Always</option>
+                        <option value="keywords">Only for questions (Search query with question marks)</option>
                     </select>
                 </div>
             </div>
@@ -98,9 +98,9 @@
                 <div class="form-group">
                     <label for="maxTokens">Max Response Length</label>
                     <select id="maxTokens">
-                        <option value="150">Short (150 tokens)</option>
-                        <option value="300" selected>Medium (300 tokens)</option>
-                        <option value="500">Long (500 tokens)</option>
+                        <option value="150">Short</option>
+                        <option value="300" selected>Medium</option>
+                        <option value="500">Long</option>
                     </select>
                 </div>
 
@@ -113,7 +113,7 @@
             <div class="button-group">
                 <button type="submit" class="btn-primary">💾 Save Settings</button>
                 <button type="button" class="btn-secondary" id="resetBtn">🔄 Reset to Defaults</button>
-                <button type="button" class="btn-test" id="testBtn">🧪 Test API</button>
+                <button type="button" class="btn-test" id="testBtn">Test API</button>
             </div>
         </form>
 

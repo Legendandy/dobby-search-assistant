@@ -55,10 +55,17 @@ class AISearchAssistant {
     document.body.appendChild(this.container);
   }
 
-  createTriggerButton() {
+createTriggerButton() {
     this.triggerBtn = document.createElement('button');
     this.triggerBtn.className = 'ai-search-trigger';
-    this.triggerBtn.innerHTML = '🤖';
+    
+    const img = document.createElement('img');
+    img.src = chrome.runtime.getURL('icons/icon.png');
+    img.alt = 'AI';
+    img.style.width = '70px';
+    img.style.height = '70px';
+    this.triggerBtn.appendChild(img);
+    
     this.triggerBtn.title = 'Get AI Answer';
     
     if (this.settings.animations) {
@@ -86,7 +93,7 @@ class AISearchAssistant {
       <div class="ai-search-content">
         <div class="ai-search-header">
           <div class="ai-search-title">
-            🤖 AI Assistant
+            Dobby AI Search Assistant
           </div>
           <div class="ai-search-controls">
             <button class="ai-control-btn" id="aiClose" title="Close">×</button>
@@ -95,7 +102,7 @@ class AISearchAssistant {
         <div class="ai-search-body" id="aiSearchBody">
           <div class="ai-search-loading">
             <div class="ai-loading-spinner"></div>
-            <p>Getting AI insights...</p>
+            <p>Getting Dobby insights...</p>
           </div>
         </div>
         <div class="ai-search-footer">
@@ -249,7 +256,7 @@ class AISearchAssistant {
     body.innerHTML = `
       <div class="ai-search-loading">
         <div class="ai-loading-spinner"></div>
-        <p>Getting AI insights...</p>
+        <p>Getting Dobby insights...</p>
       </div>
     `;
     this.showSearchBox();
@@ -259,7 +266,7 @@ class AISearchAssistant {
     const body = this.searchBox.querySelector('#aiSearchBody');
     body.innerHTML = `
       <div class="ai-search-result">
-        <h4>🧠 AI Insight</h4>
+        <h4>🧠 Dobby Insight</h4>
         <p>${result}</p>
       </div>
     `;
