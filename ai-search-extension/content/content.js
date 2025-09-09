@@ -31,11 +31,11 @@ class AISearchAssistant {
   }
 
   createUI() {
-    // Remove existing UI
+    
     const existing = document.querySelector('.ai-search-assistant');
     if (existing) existing.remove();
 
-    // Create main container
+    
     this.container = document.createElement('div');
     this.container.className = 'ai-search-assistant';
     this.container.setAttribute('data-theme', this.getTheme());
@@ -207,7 +207,7 @@ createTriggerButton() {
     const query = this.getSearchQuery();
     if (!query) return;
 
-    // Check cache first
+    
     if (!forceRefresh && this.settings.cacheResults && this.cache.has(query)) {
       this.displayResult(this.cache.get(query));
       return;
