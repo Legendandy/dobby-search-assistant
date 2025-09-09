@@ -12,7 +12,7 @@ const defaultSettings = {
   cacheResults: true
 };
 
-// Initialize options page
+
 document.addEventListener('DOMContentLoaded', async () => {
   await loadSettings();
   setupEventListeners();
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   applyTheme();
 });
 
-// Load saved settings
+
 async function loadSettings() {
   const settings = await chrome.storage.sync.get(defaultSettings);
   

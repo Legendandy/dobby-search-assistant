@@ -134,7 +134,7 @@ createTriggerButton() {
   }
 
   insertAtTop() {
-    // Removed - no longer needed since we removed "top" option
+    
   }
 
   getSearchResultsContainer() {
