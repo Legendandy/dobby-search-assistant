@@ -26,7 +26,7 @@ export default async function handler(req, res) {
       });
     }
 
-    // Call Fireworks AI API
+  
     const aiResponse = await fetch('https://api.fireworks.ai/inference/v1/chat/completions', {
       method: 'POST',
       headers: {
