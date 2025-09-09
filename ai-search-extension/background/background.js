@@ -19,7 +19,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   return true;
 });
 
-// Optional: Handle extension icon click
 chrome.action.onClicked.addListener(() => {
   chrome.runtime.openOptionsPage();
 });
